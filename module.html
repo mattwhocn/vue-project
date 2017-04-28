@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/vue.js"></script>
+    <title>Title</title>
+    <style>
+        .red{
+            background: red;
+        }
+        .green{
+            background: green;
+        }
+        .blue{
+            background: blue;
+        }
+        .pink{
+            background: pink;
+        }
+        .cyan{
+            background: cyan;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <span>Message: {{ msg }}</span><br>
+        <span v-once>Message never change :{{ msg }}</span>
+        <div v-html="realHtml"></div>
+        <button v-bind:disabled="true">给按钮添加属性</button>
+        <div v-bind:class="color">这是一个彩色的div</div>
+        <p>{{ num = 4 }}</p>
+        <p>{{ val ? 'yes' : 'no' }}</p>
+        <p>{{ msg.split('').reverse().join('') }}</p>
+        <p>{{ fun() }}</p>
+    </div>
+</body>
+<script type="text/javascript">
+    // 声明式地将 DOM 绑定至底层 Vue 实例的数据。 "Mustache" {{}}
+    var wm = new Vue({
+        el : '#app',
+        data : {
+            msg : "this is a message",
+            realHtml : "<button>一个按钮</button>",
+            true : true,
+            color: randomColor(),
+            num : 24,
+            val : true,
+            fun : function(){
+                return 'fuuunnnn'
+            }
+        }
+    });
+
+    var timer = setTimeout(function(){
+        wm.msg = "message changed"
+    },6000);
+
+    // html 指令量数据解析为真正的html
+
+
+    function randomColor(){
+        var arr = ['red','green','blue','pink','cyan'];
+        return arr[parseInt(Math.random()*(5+1))];
+    }
+
+    // Mustache 语法中支持js表达式，
+    // 可以是赋值，加减运算，三目，
+
+
+
+    // 1,使用 template 来创建 HTML
+    // 2, render 函数
+
+
+
+
+    // 指令
+    // 指令是带有v-前缀的特殊属性
+    // v-if="val" 用来判断dom的显示与消失
+    // 指令-参数  : 指令能接受一个'参数'
+    // v-bind:id="app" 用来给dom节点添加属性
+    // v-on:click="doSomething()" 用来监听事件
+    // 指令-修饰符  . 用于指出指令应该以特殊方式绑定
+
+
+    // 过滤器
+
+
+
+</script>
+</html>

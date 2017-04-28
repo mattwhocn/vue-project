@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/class&style.css">
+</head>
+<body >
+    <div id="app">
+        <div class="mydiv"  v-bind:class="{on:ison,'text-denger':isWrong}">一段文字</div>
+    </div>
+
+    <div id="app2">
+        <div class="mydiv" v-bind:class="classObj"></div>
+    </div>
+
+    <div id="app3">
+        <div class="mydiv" v-bind:class="classObj"></div>
+    </div>
+
+    <div id="app4">
+        <div class="mydiv" v-bind:class="[isShow?classa:classb,classc]"></div>
+    </div>
+
+    <div id="app5">
+        <div class="newDiv">
+            <p v-bind:style="{color:color,fontSize:fontSize}">这是一行会变色的字</p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    // 根据变量的true或false来决定class是否此显示
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            ison:true,
+            isWrong:false
+        }
+    });
+
+    // 一个对象来返回class列表
+    var vm2 = new Vue({
+        el:'#app2',
+        data:{
+            classObj:{
+                classa : true,
+                classb : true,
+                classc : false
+            }
+        }
+    });
+
+    // 计算属性来计算返回class列表
+    var vm3 = new Vue({
+        el:'#app3',
+        data:{
+
+        },
+        computed : {
+            classObj:function(){
+                return {
+                    isWrong:true,
+                    random: Math.random() > 0.5 ? true:false
+                }
+            }
+        }
+    });
+
+    // 数组返回class列表
+    var vm4 = new Vue({
+        el:'#app4',
+        data:{
+            isShow:true,
+            classa:'aclass',
+            classb:'bclass',
+            classc:'cclass'
+        }
+    });
+
+
+
+    // 自动绑定内联样式 v-bind:style=""  语法类似于内联样式
+    var vm5 = new Vue({
+        el:'#app5',
+        data:{
+            color:this.randomColor(),
+            fontSize:'30px',
+            styleObj:{
+                color:'#' + Math.floor(Math.random()*16777215).toString(16),
+                fontSize:'30px'
+            }
+        },
+        computed:{
+            color:function(){
+                this.fontSize = '50px'
+            }
+        },
+        methods : {
+            randomColor:function(){
+                return '#' + Math.floor(Math.random()*16777215).toString(16);
+            }
+        }
+    });
+    vm5.color = '#879dfe';
+
+
+
+</script>
+</html>

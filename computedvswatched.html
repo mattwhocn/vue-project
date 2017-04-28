@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{fullName}}</p>
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        methods:{
+            change:function(){
+
+            }
+        },
+        computed:{
+            fullName:{
+                // getter 计算fullName 的值
+                get:function(){
+                    return this.firstName + ' ' +  this.lastName
+                },
+                // setter 拿到计算后的 fullName的值再进行其他操作（类似于watch）
+                set:function(newVal){
+                    console.log(newVal)
+                }
+            }
+        },
+        watch:{
+            // watch 回调，在有数据改变的时候调用 ，
+            // computed 属性
+
+
+            // 当你想要在数据变化响应时，执行异步操作或开销较大的操作，用watch更好
+        }
+    });
+    console.log(typeof vm.fullName);
+</script>
+</html>

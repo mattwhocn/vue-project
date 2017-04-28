@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="vm">
+        <p>{{ a }}</p>
+        <p>{{ b }}</p>
+        <p>{{ c }}</p>
+        <button v-on:click = "change()">按钮</button>
+    </div>
+
+    <div id="app2"></div>
+</body>
+<script type="text/javascript">
+    var data = {
+        a:1,
+        b:2,
+        c:3,
+        d:4
+    };
+    var vm = new Vue({
+        el : '#vm',
+        data : data,
+        methods : {
+            change : function(){
+                data.a = 666;
+            }
+        },
+
+        // 不同的钩子在实例的生命周期的不同阶段被调用
+        created : function(){
+            // 创建 (created) 钩子在实例被创建之后调用， this 指向实例
+            console.log('a is ' + this.a );
+        }
+        //beforeCreated, ,beforeMount,mounted,beforeUpdate,updated,beforeDestroy,destroyed
+
+        // vue 没有控制器的概念，组件的自定义逻辑可以分布在这些钩子中
+    });
+    console.log( vm.$el );
+
+
+
+
+    // vue 的一些有用的实例属性和方法
+    console.log( vm.$el);   // $el 代表实例绑定的dom元素
+    console.log( vm.$data === data);   // $data 代表实例的数据
+    // 观察者方法($watch)，在数据改变后调用，第一个参数是观察的值，第二个参数是回调函数
+    vm.$watch('a',function(newVal,oldVal){
+        // this 指向的是vm实例
+        alert(newVal);
+    });
+    // 挂载方法($mount) 在vue实例没有el属性时手动挂载 -- 如 需要延迟挂载
+    vm.$mount('#app2');
+
+</script>
+</html>

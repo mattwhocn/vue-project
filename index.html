@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app2">
+        <p v-bind:title="message">
+            鼠标悬停提示信息
+        </p>
+    </div>
+
+    <div id="app3">
+        <!--加入 v-if 的代码会根据变量的值来出现和消失-->
+        <p v-if="appear">now you see me</p>
+    </div>
+
+    <div id="app4">
+        <ul>
+            <li v-for="a in arr ">
+                {{ a }}
+            </li>
+        </ul>
+    </div>
+
+    <div id="app5">
+        <button v-on:click="reverse">{{ message }}</button>
+    </div>
+
+    <div id="app6">
+        <input type="text" v-model="val1">+
+        <input type="text" v-model="val2">
+        <p> {{ val1 + val2 }} </p>
+    </div>
+
+    <!--创建一个模板实例-->
+    <div id="app7">
+        <ul>
+            <todo-item v-for="item in arrList" v-bind:todo="item"></todo-item>
+        </ul>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            message: "页面加载与" + new Date()
+        }
+    });
+
+    var app3 = new Vue({
+        el: '#app3',
+        data: {
+            appear:false
+        }
+    });
+
+    // 绑定dom结构到数据
+    var app4 = new Vue({
+        el: '#app4',
+        data:{
+            arr:['1','2','3','4']
+        }
+    });
+
+    // 绑定事件
+    var app5 = new Vue({
+        el: '#app5',
+        data:{
+            message:"点击逆转内容"
+        },
+        methods:{
+            reverse:function(){
+                this.message = this.message.split('').reverse().join('');
+            }
+        }
+    });
+
+    // v-module 指令
+    var app6 = new Vue({
+        el: '#app6',
+        data:{
+            val1:1,
+            val2:2
+        }
+    });
+
+
+    // 组件化应用 -- 模板
+    Vue.component('todo-item',{
+        props:['todo'],
+        template:'<li>{{ todo }}</li>'
+    });
+    var app7 = new Vue({
+        el:"#app7",
+        data:{
+            arrList:["macbook","iphone8","surface","imac","jbl pulse"]
+        }
+    })
+
+
+
+</script>
+</html>

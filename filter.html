@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message | capitalize('xxxxx',plus) }}</p>
+    </div>
+
+    <div id="app2">
+        <a :href="url">百度</a>
+        <button @click="changeContent()">{{ btn }}</button>
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            message : "KSJI",
+            plus:"plussss"
+        },
+        filters:{    // 文本过滤器
+            // 过滤器是js函数，因此能够接受参数
+            capitalize:function(val,v1,v2){
+                if (!val) return '';
+                return val.toUpperCase() + v1 + v2;
+            }
+        }
+    });
+
+    var app2 = new Vue({
+        el:'#app2',
+        data:{
+            url:'http://www.baidu.com',
+            btn:'按钮'
+        },
+        methods : {
+            changeContent:function(){
+                this.btn = '新的按钮'
+            }
+        }
+    })
+</script>
+</html>
