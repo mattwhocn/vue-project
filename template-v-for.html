@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style>
+        .green{
+            background: #bdff37;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <template v-for="item of items">
+                <li>{{ item.name }}</li>
+                <li v-bind:class="{ green:hightLight }">&ensp;&ensp;&ensp;&ensp;:是的</li>
+            </template>
+        </ul>
+    </div>
+    <div id="app2">
+        <!-- 第一个参数的是val，第二个参数是key,第三参数是index-->
+        <div v-for="(val,key,index) of obj">
+            <p >{{index + ' · ' + key + ':' +  val }}</p>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            items:[{
+                name:'张三'
+            },{
+                name:'李四'
+            }],
+            hightLight: Math.random() > 0.5 ? true : false
+        }
+    });
+
+    //在 v-for 块中，拥有对父作用域属性的完全访问权限。
+
+
+    // v-for 也可以循环一个对象
+    var vm2 = new Vue({
+        el:'#app2',
+        data:{
+            obj:{
+                name:'mat zhang',
+                age:'18'
+            }
+        }
+    });
+
+    // 3  整数迭代   <span v-for="n in 10">{{ n }}</span>
+
+</script>
+</html>
