@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>按钮一共点击了{{ count }}次</p>
+        <button v-on:click="plus">按钮点击</button>
+    </div>
+
+    <div id="app2">
+        <button v-on:click="say('hello')">say hello</button>
+        <button v-on:click="say('world')">say world</button>
+        <button v-on:click="say('中文')">说中文</button>
+    </div>
+
+
+    <div id="app3" v-on:keyup.f="show">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+    </div>
+</body>
+<script type="text/javascript">
+    // v-on用来绑定事件
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            count:0
+        },
+        methods:{
+            plus:function(event){
+                var e = event || window.event;
+                this.count = this.count + 1;
+                alert(e.target.tagName);
+                console.log(e.which);
+            }
+        }
+    });
+
+    // 事件处理程序通常有很多行代码,所以,v-on的绑定事件通常不写直接的js语句,而是调用事件处理函数
+
+    // on 绑定的事件汉能内联js语句,的形式调用
+    var vm2 = new Vue({
+        el:'#app2',
+        data:{
+
+        },
+        methods:{
+            say:function(word){
+                alert(word);
+
+            }
+        }
+    });
+
+
+    // 内联形式的绑定事件,同样能传递event参数
+    // fun('msg',$event);   // 第一个参数是内联函数调用时传递的参数,第二个参数是原生的event事件对象
+
+
+
+    // 事件修饰符
+    // 可以在 methods 方法内实现 : event.preventDefault() 或 event.stopPropagation(),但是可以用更简单的修饰符来实现,
+    // 在v-on 绑定事件的时候加上一定的修饰符,
+
+    // 如:v-on:click.stop=""   来阻止冒泡
+    //    v-on:click.prevent=""  来阻止默认事件// 比如 在 v-on:submit.prevent 中就阻止了form提交之后的重载页面
+    // 可以对控股修饰符串联,也可以只写修饰符,不绑定事件处理程序. once修饰符保证绑定的事件只会触发一次.self 表示,只有在绑定的元素本身
+    // (而非该元素的子元素) 上触发时才会执行事件处理程序. capture修饰符指添加事件绑定时使用捕获模式
+
+
+    // 按键修饰符
+    // 键盘事件:keyup,keydown,keypress 事件有特有的事件修饰符,
+    // .13 代表绑定键值为13的按键的事件处理程序
+    // .enter, .tab, .delete, .esc, .space, .up, .down , .left, .right
+    // 还可以在全局,通过config.keyCodes 对象 自定义修饰符别名
+
+    // eg
+    Vue.config.keyCodes.f = 70;
+    var vm3 = new Vue({
+        el:'#app3',
+        methods:{
+            show:function(e){
+                window.location.reload();
+            }
+        }
+    });
+
+
+    // .ctrl .alt .shift .meta 新增的监听键盘事件的修饰符  其中meta代表 command键(windows键)
+
+//    你可能注意到这种事件监听的方式违背了关注点分离（separation of concern）传统理念。不必担心，因为所有的 Vue.js 事件处理方法和表达式都严格绑定在当前视图的 ViewModel 上，它不会导致任何维护上的困难。实际上，使用 v-on 有几个好处：
+//    1,扫一眼 HTML 模板便能轻松定位在 JavaScript 代码里对应的方法。
+//    2,因为你无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
+//    3,当一个 ViewModel 被销毁时，所有的事件处理器都会自动被删除。你无须担心如何自己清理它们。
+</script>
+</html>

@@ -18,4 +18,5 @@ body .random {
 }
 body .newDiv {
   float: left;
+  background: red;
 }
