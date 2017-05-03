@@ -10,9 +10,23 @@
 </head>
 <body>
     <div id="app">
-
+        <ul v-for="(item,index) in dataArr">
+            <li>{{index + ":" +item.age}}</li>
+        </ul>
     </div>
 </body>
 <script type="text/javascript">
+    //  for 中可以有第二个参数,代表数据的下标
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            dataArr:[
+                {name:'张猛',age:'18'},
+                {name:'张猛',age:'19'},
+                {name:'张猛',age:'20'},
+                {name:'张猛',age:'21'}
+            ]
+        }
+    })
 </script>
 </html>
